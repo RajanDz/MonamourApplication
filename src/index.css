@@ -129,12 +129,13 @@ p { color: var(--gray-600); line-height: 1.7; }
 }
 .header-icon-btn:hover { color: var(--gold); }
 .header-icon-btn svg { width: 20px; height: 20px; }
-.cart-badge {
+.cart-badge, .header-wishlist-badge {
   position: absolute; top: -5px; right: -7px;
   background: var(--gold); color: var(--white); font-size: 0.58rem;
   width: 16px; height: 16px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; font-weight: 600;
 }
+.header-wishlist-btn.header-icon-btn:hover svg { fill: var(--gold); stroke: var(--gold); }
 .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; padding: 6px; background: none; border: none; cursor: pointer; }
 .mobile-menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--black); transition: var(--transition); }
 

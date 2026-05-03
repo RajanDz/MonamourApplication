@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
-import { useSession } from '../hooks/useSession'
-import toast from 'react-hot-toast'
+import { useWishlist } from '../context/WishlistContext'
 
 function formatPrice(price) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price)
@@ -10,7 +9,7 @@ function formatPrice(price) {
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate()
-  const sessionId = useSession()
+  const { toggle, isInWishlist } = useWishlist()
   const [imgIndex, setImgIndex] = useState(0)
   const touchStartX = useRef(null)
   const mouseStartX = useRef(null)
@@ -49,14 +48,9 @@ export default function ProductCard({ product }) {
     mouseStartX.current = null
   }
 
-  async function handleWishlist(e) {
+  function handleWishlist(e) {
     e.stopPropagation()
-    if (!sessionId) return
-    const { error } = await supabase.from('wishlist').upsert(
-      { session_id: sessionId, product_id: product.id },
-      { onConflict: 'session_id,product_id', ignoreDuplicates: true }
-    )
-    if (!error) toast.success('Saved to wishlist')
+    toggle(product)
   }
 
   async function handleClick() {
@@ -106,7 +100,7 @@ export default function ProductCard({ product }) {
 
         <div className="product-card-actions">
           <button className="btn btn-primary btn-sm" onClick={handleWishlist} style={{ flex: 1 }}>
-            ♡ Wishlist
+            {isInWishlist(product.id) ? '♥ Sačuvano' : '♡ Sačuvaj'}
           </button>
         </div>
       </div>

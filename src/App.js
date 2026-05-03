@@ -4,7 +4,9 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
+import WishlistPage from './pages/Wishlist'
 import NotFound from './pages/NotFound'
+import { WishlistProvider } from './context/WishlistContext'
 
 import AdminLogin from './pages/admin/AdminLogin'
 import AdminLayout from './pages/admin/AdminLayout'
@@ -39,6 +41,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <WishlistProvider>
           <Toaster
             position="top-right"
             toastOptions={{
@@ -50,6 +53,7 @@ export default function App() {
             {/* ── Customer ── */}
             <Route path="/" element={<Home />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
 
             {/* ── Admin login (public, exact /admin) ── */}
             <Route path="/admin" element={<AdminLogin />} />
@@ -67,6 +71,7 @@ export default function App() {
 
             <Route path="*" element={<NotFound />} />
           </Routes>
+        </WishlistProvider>
       </AuthProvider>
     </BrowserRouter>
   )
