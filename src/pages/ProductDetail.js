@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
-import { useSession } from '../hooks/useSession'
 import AnnouncementBar from '../components/AnnouncementBar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ProductCard from '../components/ProductCard'
-import toast from 'react-hot-toast'
 
 function formatPrice(p) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(p)
@@ -18,7 +16,6 @@ export default function ProductDetail() {
   const [related, setRelated] = useState([])
   const [activeImage, setActiveImage] = useState(0)
   const [loading, setLoading] = useState(true)
-  const sessionId = useSession()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -52,15 +49,6 @@ export default function ProductDetail() {
     load()
   }, [slug, navigate])
 
-  async function handleWishlist() {
-    if (!sessionId || !product) return
-    const { error } = await supabase.from('wishlist').upsert(
-      { session_id: sessionId, product_id: product.id },
-      { onConflict: 'session_id,product_id', ignoreDuplicates: true }
-    )
-    if (!error) toast.success('Saved to wishlist')
-  }
-
   if (loading) return (
     <>
       <AnnouncementBar /><Header />
@@ -85,10 +73,7 @@ export default function ProductDetail() {
           <div className="breadcrumb">
             <Link to="/">Home</Link>
             <span>/</span>
-            <Link to="/products">Shop</Link>
-            <span>/</span>
-            <span>{product.categories?.name}</span>
-            <span>/</span>
+            {product.categories?.name && <><span>{product.categories.name}</span><span>/</span></>}
             <span style={{ color: 'var(--black)' }}>{product.name}</span>
           </div>
 
@@ -143,12 +128,6 @@ export default function ProductDetail() {
                 {stockStatus === 'out' && '✕ Out of Stock'}
                 {stockStatus === 'low' && `⚡ Only ${product.stock} left`}
                 {stockStatus === 'available' && `✓ In Stock (${product.stock} available)`}
-              </div>
-
-              <div className="product-detail-actions">
-                <button className="btn btn-outline" onClick={handleWishlist} title="Save to wishlist">
-                  ♡ Save to Wishlist
-                </button>
               </div>
 
               {product.instagram_link && (

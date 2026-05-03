@@ -21,12 +21,6 @@ const SETTINGS = [
     description: 'Your store name shown in browser tab and footer',
     type: 'text',
   },
-  {
-    key: 'free_shipping_threshold',
-    label: 'Free Shipping Threshold ($)',
-    description: 'Orders above this amount get free shipping',
-    type: 'number',
-  },
 ]
 
 export default function AdminSettings() {

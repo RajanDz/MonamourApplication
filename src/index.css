@@ -41,6 +41,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body { font-family: var(--font-sans); background: var(--white); color: var(--black); line-height: 1.6; }
+#root { display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
@@ -204,7 +206,8 @@ p { color: var(--gray-600); line-height: 1.7; }
 ======================== */
 .product-card { display: flex; flex-direction: column; cursor: pointer; }
 .product-card-image-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--gray-100); }
-.product-card-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s var(--ease); }
+@keyframes imgFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.product-card-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s var(--ease); animation: imgFadeIn 0.2s ease; user-select: none; }
 .product-card:hover .product-card-image { transform: scale(1.05); }
 .product-card-placeholder {
   width: 100%; height: 100%;
@@ -228,6 +231,9 @@ p { color: var(--gray-600); line-height: 1.7; }
 .price-current { font-size: 0.875rem; font-weight: 500; color: var(--black); }
 .price-original { font-size: 0.78rem; color: var(--gray-400); text-decoration: line-through; }
 .price-sale { color: #b8342c; }
+.product-card-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 5px; z-index: 2; pointer-events: none; }
+.product-card-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: background 0.2s; }
+.product-card-dot.active { background: var(--white); }
 
 /* ========================
    SKELETON

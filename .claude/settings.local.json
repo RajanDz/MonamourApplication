@@ -6,7 +6,8 @@
       "Bash(curl -s http://localhost:3000)",
       "Bash(npx react-scripts *)",
       "Bash(PORT=3001 npm start)",
-      "Bash(curl -s http://localhost:3001)"
+      "Bash(curl -s http://localhost:3001)",
+      "Bash(curl *)"
     ]
   }
 }

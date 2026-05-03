@@ -3,13 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import { AuthProvider, useAuth } from './context/AuthContext'
 
 import Home from './pages/Home'
-import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail'
-import Wishlist from './pages/Wishlist'
-import Search from './pages/Search'
-import About from './pages/About'
-import Shipping from './pages/Shipping'
-import Returns from './pages/Returns'
 import NotFound from './pages/NotFound'
 
 import AdminLogin from './pages/admin/AdminLogin'
@@ -17,7 +11,6 @@ import AdminLayout from './pages/admin/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/AdminProducts'
 import AdminCategories from './pages/admin/AdminCategories'
-import AdminBanners from './pages/admin/AdminBanners'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminSettings from './pages/admin/AdminSettings'
 
@@ -56,13 +49,7 @@ export default function App() {
           <Routes>
             {/* ── Customer ── */}
             <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/returns" element={<Returns />} />
 
             {/* ── Admin login (public, exact /admin) ── */}
             <Route path="/admin" element={<AdminLogin />} />
@@ -73,7 +60,6 @@ export default function App() {
                 <Route path="/admin/dashboard" element={<Dashboard />} />
                 <Route path="/admin/products" element={<AdminProducts />} />
                 <Route path="/admin/categories" element={<AdminCategories />} />
-                <Route path="/admin/banners" element={<AdminBanners />} />
                 <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="/admin/settings" element={<AdminSettings />} />
               </Route>
